@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:vid_player/component/custom_video_player.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({Key? key}) : super(key: key);
@@ -20,7 +21,10 @@ class _HomeScreenState extends State<HomeScreen> {
 
   Widget renderVideo() {
     return Center(
-      child: Text('Video'),
+      child: CustomVideoPlayer(
+        video: video!,
+        onNewVideoPressed: onNewVideoPressed,
+      ),
     );
   }
 
@@ -32,20 +36,21 @@ class _HomeScreenState extends State<HomeScreen> {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           _Logo(
-            onTap: onLogoTap,
+            onTap: onNewVideoPressed,
           ),
-          SizedBox(height: 20.0),
+          SizedBox(height: 30.0),
           _AppName(),
         ],
       ),
     );
   }
 
-  void onLogoTap() async {
+  void onNewVideoPressed() async {
     final video = await ImagePicker().pickVideo(
       source: ImageSource.gallery,
     );
-    if(video != null) {
+
+    if (video != null) {
       setState(() {
         this.video = video;
       });
@@ -69,7 +74,10 @@ class _HomeScreenState extends State<HomeScreen> {
 class _Logo extends StatelessWidget {
   final VoidCallback onTap;
 
-  const _Logo({required this.onTap, Key? key}) : super(key: key);
+  const _Logo({
+    required this.onTap,
+    Key? key,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -88,7 +96,11 @@ class _AppName extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final textStyle = TextStyle(
-        color: Colors.white, fontSize: 30.0, fontWeight: FontWeight.w300);
+      color: Colors.white,
+      fontSize: 30.0,
+      fontWeight: FontWeight.w300,
+    );
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
@@ -98,9 +110,10 @@ class _AppName extends StatelessWidget {
         ),
         Text(
           'PLAYER',
-          // copyWith : 이미 만들어 놓은 값들을 유지하고, 추가 값을 덮어 씌워라
-          style: textStyle.copyWith(fontWeight: FontWeight.w700),
-        )
+          style: textStyle.copyWith(
+            fontWeight: FontWeight.w700,
+          ),
+        ),
       ],
     );
   }

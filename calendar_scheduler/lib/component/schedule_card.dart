@@ -2,8 +2,8 @@ import 'package:calendar_scheduler/const/colors.dart';
 import 'package:flutter/material.dart';
 
 class ScheduleCard extends StatelessWidget {
-  final DateTime startTime;
-  final DateTime endTime;
+  final int startTime;
+  final int endTime;
   final String content;
   final Color color;
 
@@ -35,13 +35,13 @@ class ScheduleCard extends StatelessWidget {
                 startTime: startTime,
                 endTime: endTime,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16.0,
               ),
               _Content(
                 content: content,
               ),
-              SizedBox(
+              const SizedBox(
                 width: 16.0,
               ),
               _Category(
@@ -56,26 +56,26 @@ class ScheduleCard extends StatelessWidget {
 }
 
 class _Time extends StatelessWidget {
-  final DateTime startTime;
-  final DateTime endTime;
+  final int startTime;
+  final int endTime;
 
   const _Time({Key? key, required this.startTime, required this.endTime})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    final textStyle = TextStyle(
+    const textStyle = TextStyle(
         fontWeight: FontWeight.w600, color: PRIMARY_COLOR, fontSize: 16.0);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
-          '${startTime.hour.toString().padLeft(2, '0')}:${startTime.minute.toString().padLeft(2, '0')}',
+          '${startTime.toString().padLeft(2, '0')}:00',
           style: textStyle,
         ),
         Text(
-          '${endTime.hour.toString().padLeft(2, '0')}:${endTime.minute.toString().padLeft(2, '0')}',
+          '${endTime.toString().padLeft(2, '0')}:00',
           style: textStyle.copyWith(
             fontSize: 10.0,
           ),
